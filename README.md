@@ -1,76 +1,26 @@
-# Dapr Volleyball Demo
+# 2024 GHC Level Up Lab
+## Spike Your Application Development Skills with Dapr
+### With Samantha & Cassandra Coyle, Diagrid
 
-## Volleyball Game Simulator
+### Overview
+Simplifying writing complex distributed apps seems impossible, right? Developers today face immense pressure to write secure, scalable, resilient, portable, and fault-tolerant apps, making this a big ask.
+Distributed Application Runtime (Dapr) alleviates the challenges of building cloud-native, containerized apps by providing APIs & SDKs (.Net, Java, JS, Go, and more) that abstract away the complexities of microservice development. Dapr sidecars take care of many challenges devs would otherwise have to write in their app code—such as service discovery and invocation, observability, and resiliency—all while allowing developers to write in the language that makes the most sense for their use case.
 
-Volleyball Game Simulator simulates a volleyball game scenario where there are 100 volleyball games.
-It randomly adds a point to one of two teams during the game until one team wins by 2.
-Game point in volleyball is set to 25, but there is no cap in our simulation.
-As the game continues, it sends score updates onto the `game` topic of the `gamepubsub` pubsub.
+This workshop aims to spike attendee web development skills and knowledge through a hands-on volleyball application development journey, using Dapr and Go. This workshop aims to showcase the simplicity of Dapr, and how it alleviates comment application development challenges.
 
-```
-cd cmd/game-sim
+### Agenda
+1. Intro - X minutes
+2. TODO
 
-dapr run \
---app-id game-sim \
---app-protocol http \
---dapr-http-port 3500 \
---resources-path ../../resources -- go run .
-```
+### Workshop Logistics
+1. Laptop & charger
+2. Internet access
 
-No app port
-Dapr port: 3500
+### Aditional Resources
+1. [How to run the code](./runningTheCode.md)
 
-
-## Scoreboard API
-
-Scoreboard API Service is a Dapr service that saves volleyball game state,
-and provides an API to retrieve game scores using Dapr topic event and service invocation handlers.
-It listens to incoming game score update events on the `gamepubsub` pubsub `game` topic,
-and any game score that is game point (25) or higher it will save to the statestore.
-Specific game score may be found using this API when provided a game ID.
-
-```
-cd cmd/scoreboard
-
-dapr run \
-  --app-port 3002 \
-  --app-id scoreboard \
-  --app-protocol http \
-  --dapr-http-port 3500 \
-  --resources-path=../../resources -- go run .
-```
-
-App port 3002
-Dapr port: 3500
-
-
-## Game Service
-
-Game Service is a Dapr service that provides an interface for the web UI to interact with the system.
-It has a `scoreboard` endpoint that invokes service invocation on the `scoreboard` service to retrieve game score for a specific game ID to display on the web UI.
-
-```
-cd cmd/game-service
-
-dapr run \
---app-id game-service \
---app-port 3001 \
---app-protocol http \
---dapr-http-port 3500 \
---resources-path ../../resources -- go run .
-```
-
-App Port: 3001
-Dapr port: 3500
-
-## Web UI
-
-The Web UI displays volleyball game score information.
-
-```
-cd web-ui/
-
-npm start
-```
-
-UI can be reached at: http://localhost:3000/
+### Takeaways
+1. Attendees will learn about an Open Source project that can significantly simplify common development challenges around areas such as state management, service to service calls, and event driven architecture.
+2. Attendees will gain an understanding of best practices with web development in a highly distributed environment.
+3. Attendees will gain hands on experience in web development using the Dapr Open Source project to streamline application development challenges.
+4. Attendees will have live access to experts in Dapr who actively contribute to the Open Source project themselves, as well as consume Dapr in their day jobs.
