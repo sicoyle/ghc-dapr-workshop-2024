@@ -1,24 +1,53 @@
 # How to run the code
 
-## Prerequisites
+## Overview
+- [Prerequisites](#prerequisites)
+- [Dapr Volleyball Services](#dapr-volleyball-services)
+- [Access the User Interface](#access-the-user-interface)
 
-### Install necessary software
+### Prerequisites
+
+#### Install necessary software
 1. [Install the Dapr Command Line Interface (CLI)](https://docs.dapr.io/getting-started/install-dapr-cli/)
 2. [Download Go](https://go.dev/doc/install)
 3. [Recommended to install an IDE, such as VSCode](https://code.visualstudio.com/download)
 
-### Download the code
-1. Download the Level Up Lab code:
+#### Download the code
+
+There are many ways to download the code to interact with this Level Up Lab.
+Use the flow that applies to you:
+
+##### If you have a Github account
+1. Fork the repository using the button here on the Github UI:
+![Fork button to click](./assets/forkButton.png)
+
+2. Create your fork using the following information where `cicoyle` is replaced by your Github ID.
+![Fork specification](./assets/forkSpecs.png)
+
+3. Download the Level Up Lab code locally from your fork:
 ```
-git clone git@github.com:sicoyle/ghc-dapr-workshop-2024.git
+git clone git@github.com:<your Github ID>/ghc-dapr-workshop-2024.git
 ```
-2. Enter the directory where the code is located either in your Finder app, or IDE, or in terminal with:
+4. Enter the directory where the code is located either in your Finder app, or IDE, or in terminal with:
 ```
 cd ghc-dapr-workshop-2024.git
 ```
 
+##### If you do NOT have a Github account
 
-## Volleyball Game Simulator
+1. Access the code by downloading a ZIP file containing the Github repository if you do not have a Github account.
+![Download ZIP](./assets/downloadZip.png)
+
+2. Unzip the download.
+
+2. Enter the directory where the code is located either in your Finder app, or IDE, or in terminal with:
+```
+cd ghc-dapr-workshop-2024
+```
+
+### Dapr Volleyball Services 
+
+#### Volleyball Game Simulator
 
 Volleyball Game Simulator simulates a volleyball game scenario where there are 100 volleyball games.
 It randomly adds a point to one of two teams during the game until one team wins by 2.
@@ -39,7 +68,7 @@ No app port
 Dapr port: 3500
 
 
-## Scoreboard API
+#### Scoreboard API
 
 Scoreboard API Service is a Dapr service that saves volleyball game state,
 and provides an API to retrieve game scores using Dapr topic event and service invocation handlers.
@@ -62,7 +91,7 @@ App port 3002
 Dapr port: 3500
 
 
-## Game Service
+#### Game Service
 
 Game Service is a Dapr service that provides an interface for the web UI to interact with the system.
 It has a `scoreboard` endpoint that invokes service invocation on the `scoreboard` service to retrieve game score for a specific game ID to display on the web UI.
@@ -81,9 +110,9 @@ dapr run \
 App Port: 3001
 Dapr port: 3500
 
-## Web UI
+### Access the User Interface
 
-The Web UI displays volleyball game score information.
+The Web User Interface (UI) displays volleyball game score information.
 
 ```
 cd web-ui/
