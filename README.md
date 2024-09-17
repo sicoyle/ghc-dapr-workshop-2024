@@ -32,7 +32,8 @@ comment application development challenges.
 
 ### Additional Resources
 1. [Prerequisites](./prereqs.md)
-1. [How to run the code](./runningTheCode.md)
+2. [How to run the code](./runningTheCode.md)
+3. [Troubleshooting Guide](./troubleshooting.md)
 
 ### Takeaways
 1. Attendees will learn about an Open Source project that can significantly simplify common development challenges 

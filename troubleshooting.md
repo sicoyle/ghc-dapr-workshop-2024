@@ -2,7 +2,7 @@
 
 ## Running UI
 
-How to fix: 
+If you are running the UI and encounter the following error: 
 
 ```
 npm start
@@ -13,4 +13,4 @@ npm start
 sh: react-scripts: command not found
 ```
 
-Run: `npm install react-scripts`
+To resolve the above error, run: `npm install react-scripts`
