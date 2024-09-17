@@ -10,7 +10,7 @@ Game point in volleyball is set to 25, but there is no cap in our simulation.
 As the game continues, it sends score updates onto the `game` topic of the `gamepubsub` pubsub.
 
 ```
-cd cmd/game-sim
+cd cmd/game-sim \
 
 dapr run \
 --app-id game-sim \
@@ -32,18 +32,18 @@ and any game score that is game point (25) or higher it will save to the statest
 Specific game score may be found using this API when provided a game ID.
 
 ```
-cd cmd/scoreboard
+cd cmd/scoreboard \
 
 dapr run \
-  --app-port 3002 \
+  --app-port 3001 \
   --app-id scoreboard \
   --app-protocol http \
-  --dapr-http-port 3500 \
+  --dapr-http-port 3501 \
   --resources-path=../../resources -- go run .
 ```
 
-App port 3002
-Dapr port: 3500
+App port 3001
+Dapr port: 3501
 
 
 ### Game Service
@@ -52,18 +52,18 @@ Game Service is a Dapr service that provides an interface for the web UI to inte
 It has a `scoreboard` endpoint that invokes service invocation on the `scoreboard` service to retrieve game score for a specific game ID to display on the web UI.
 
 ```
-cd cmd/game-service
+cd cmd/game-service \
 
 dapr run \
 --app-id game-service \
---app-port 3001 \
+--app-port 3002 \
 --app-protocol http \
---dapr-http-port 3500 \
+--dapr-http-port 3502 \
 --resources-path ../../resources -- go run .
 ```
 
-App Port: 3001
-Dapr port: 3500
+App Port: 3002
+Dapr port: 3502
 
 ## Access the User Interface
 

@@ -10,6 +10,7 @@
 2. [Download Go](https://go.dev/doc/install)
 3. [Install Docker](https://docs.docker.com/engine/install/)
 4. [Recommended to install an IDE, such as VSCode](https://code.visualstudio.com/download)
+5. [Install node & npm](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm)
 
 ## Download the code
 
@@ -47,6 +48,8 @@ cd ghc-dapr-workshop-2024
 ```
 
 ## Initialize Dapr
+
+[Initialize Dapr in your local development environment](https://docs.dapr.io/getting-started/install-dapr-selfhost/)
 
 ```
 dapr init
