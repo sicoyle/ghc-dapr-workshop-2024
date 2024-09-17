@@ -3,6 +3,7 @@
 - [Install necessary software](#install-necessary-software)
 - [Download the code](#download-the-code)
 - [Initialize Dapr](#initialize-dapr)
+- [Run the code](#run-the-code)
 
 ## Install necessary software
 1. [Install the Dapr Command Line Interface (CLI)](https://docs.dapr.io/getting-started/install-dapr-cli/)
