@@ -19,10 +19,10 @@ comment application development challenges.
 1. Intro - 3 minutes
 2. Dapr Overview - 7 minutes
 3. Volleyball Overview - 2 minutes
-4. Service Invocation - 11 minutes
-5. Publish & Subscribe - 11 minutes
-6. State Management - 11 minutes
-7. Observability - 5 minutes
+4. Setup - 6 minutes
+5. Service Invocation - 11 minutes
+6. Publish & Subscribe - 11 minutes
+7. State Management - 11 minutes
 8. Conclusion - 2 minutes
 9. Q & A - 8 minutes
 
@@ -31,6 +31,7 @@ comment application development challenges.
 2. Internet access
 
 ### Additional Resources
+1. [Prerequisites](./prereqs.md)
 1. [How to run the code](./runningTheCode.md)
 
 ### Takeaways

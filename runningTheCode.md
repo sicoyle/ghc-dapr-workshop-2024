@@ -15,7 +15,9 @@
 #### Download the code
 
 There are many ways to download the code to interact with this Level Up Lab.
-Use the flow that applies to you:
+Use either flow that applies to you:
+- [You have a preexisting Github account](#if-you-have-a-github-account)
+- [You do not have a Github account](#if-you-do-not-have-a-github-account)
 
 ##### If you have a Github account
 1. Fork the repository using the button here on the Github UI:
