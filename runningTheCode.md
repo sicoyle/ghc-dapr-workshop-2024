@@ -1,8 +1,8 @@
 # How to run the code
 
-### Dapr Volleyball Services
+## Dapr Volleyball Services 
 
-#### Volleyball Game Simulator
+### Volleyball Game Simulator
 
 Volleyball Game Simulator simulates a volleyball game scenario where there are 100 volleyball games.
 It randomly adds a point to one of two teams during the game until one team wins by 2.
@@ -23,7 +23,7 @@ No app port
 Dapr port: 3500
 
 
-#### Scoreboard API
+### Scoreboard API
 
 Scoreboard API Service is a Dapr service that saves volleyball game state,
 and provides an API to retrieve game scores using Dapr topic event and service invocation handlers.
@@ -46,7 +46,7 @@ App port 3001
 Dapr port: 3501
 
 
-#### Game Service
+### Game Service
 
 Game Service is a Dapr service that provides an interface for the web UI to interact with the system.
 It has a `scoreboard` endpoint that invokes service invocation on the `scoreboard` service to retrieve game score for a specific game ID to display on the web UI.
@@ -65,7 +65,7 @@ dapr run \
 App Port: 3002
 Dapr port: 3502
 
-### Access the User Interface
+## Access the User Interface
 
 The Web User Interface (UI) displays volleyball game score information.
 

@@ -16,7 +16,7 @@ development journey, using Dapr and Go. This workshop aims to showcase the simpl
 comment application development challenges.
 
 ### Agenda
-1. Intro - 3 minutes
+1. Intro - 2 minutes
 2. Dapr Overview - 7 minutes
 3. Volleyball Overview - 2 minutes
 4. Setup - 6 minutes
@@ -30,7 +30,7 @@ comment application development challenges.
 1. Laptop & charger
 2. Internet access
 
-### Additional Resources
+### Workshop Guides
 1. [Prerequisites](./prereqs.md)
 2. [How to run the code](./runningTheCode.md)
 3. [Troubleshooting Guide](./troubleshooting.md)
@@ -43,3 +43,6 @@ around areas such as state management, service to service calls, and event drive
 application development challenges.
 4. Attendees will have live access to experts in Dapr who actively contribute to the Open Source project themselves, 
 as well as consume Dapr in their day jobs.
+
+### Additional Resources
+1. [Dapr docs](https://docs.dapr.io/)
