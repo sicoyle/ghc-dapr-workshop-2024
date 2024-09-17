@@ -11,6 +11,7 @@
 1. [Install the Dapr Command Line Interface (CLI)](https://docs.dapr.io/getting-started/install-dapr-cli/)
 2. [Download Go](https://go.dev/doc/install)
 3. [Recommended to install an IDE, such as VSCode](https://code.visualstudio.com/download)
+4. [Install node & npm](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm)
 
 #### Download the code
 
@@ -49,6 +50,8 @@ cd ghc-dapr-workshop-2024
 
 ### Initialize Dapr
 
+[Initialize Dapr in your local development environment](https://docs.dapr.io/getting-started/install-dapr-selfhost/)
+
 ```
 dapr init
 ```
@@ -63,7 +66,7 @@ Game point in volleyball is set to 25, but there is no cap in our simulation.
 As the game continues, it sends score updates onto the `game` topic of the `gamepubsub` pubsub.
 
 ```
-cd cmd/game-sim
+cd cmd/game-sim \
 
 dapr run \
 --app-id game-sim \
@@ -85,7 +88,7 @@ and any game score that is game point (25) or higher it will save to the statest
 Specific game score may be found using this API when provided a game ID.
 
 ```
-cd cmd/scoreboard
+cd cmd/scoreboard \
 
 dapr run \
   --app-port 3002 \
@@ -105,18 +108,18 @@ Game Service is a Dapr service that provides an interface for the web UI to inte
 It has a `scoreboard` endpoint that invokes service invocation on the `scoreboard` service to retrieve game score for a specific game ID to display on the web UI.
 
 ```
-cd cmd/game-service
+cd cmd/game-service \
 
 dapr run \
 --app-id game-service \
 --app-port 3001 \
 --app-protocol http \
---dapr-http-port 3500 \
+--dapr-http-port 3501 \
 --resources-path ../../resources -- go run .
 ```
 
 App Port: 3001
-Dapr port: 3500
+Dapr port: 3501
 
 ### Access the User Interface
 
