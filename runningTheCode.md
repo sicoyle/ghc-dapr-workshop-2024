@@ -45,6 +45,12 @@ cd ghc-dapr-workshop-2024.git
 cd ghc-dapr-workshop-2024
 ```
 
+### Initialize Dapr
+
+```
+dapr init
+```
+
 ### Dapr Volleyball Services 
 
 #### Volleyball Game Simulator
