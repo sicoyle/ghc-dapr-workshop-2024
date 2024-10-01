@@ -55,6 +55,13 @@ cd ghc-dapr-workshop-2024
 dapr init
 ```
 
+Note, a `dapr init` includes:
+- Running a Redis container instance to be used as a local state store and message broker.
+- Running a Zipkin container instance for observability.
+- Creating a default components folder with component definitions for the above.
+- Running a Dapr placement service container instance for local actor support.
+- Running a Dapr scheduler service container instance for job scheduling.
+
 Ensure dapr was successfully installed by seeing this output:
 
 ```shell
