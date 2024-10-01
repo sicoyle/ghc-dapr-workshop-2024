@@ -18,12 +18,12 @@ import (
 	dapr "github.com/dapr/go-sdk/service/http"
 )
 
-const stateStoreComponentName = "statestore"
+const stateStoreComponentName = "gamestore"
 
 var sub = &common.Subscription{
 	PubsubName: "gamepubsub",
 	Topic:      "game",
-	Route:      "/save-game",
+	Route:      "/updateScore",
 }
 
 func main() {
@@ -44,7 +44,8 @@ func main() {
 	if err := s.AddServiceInvocationHandler("/echo", echoHandler); err != nil {
 		log.Fatalf("error adding invocation handler: %v", err)
 	}
-	if err := s.AddServiceInvocationHandler("/scoreboard", getGameScoreboardHandler); err != nil {
+	// handle incoming service requests
+	if err := s.AddServiceInvocationHandler("/currentscore", getGameScoreboardHandler); err != nil {
 		log.Fatalf("error adding invocation handler for scoreboard: %v", err)
 	}
 
@@ -77,7 +78,7 @@ func echoHandler(ctx context.Context, in *common.InvocationEvent) (out *common.C
 // eventHandler receives data on the game topic and saves state on game point of 25 or higher for either team.
 func eventHandler(ctx context.Context, e *common.TopicEvent) (retry bool, err error) {
 	currentTime := time.Now().Format("2006-01-02 15:04:05")
-	fmt.Printf("[%s] Subscriber received data %v and rawdata %v\n", currentTime, e.Data, e.RawData)
+	fmt.Printf("[%s] Subscriber received data %v\n", currentTime, e.Data)
 	client, err := client.NewClient()
 	if err != nil {
 		log.Fatal(err)
@@ -91,8 +92,8 @@ func eventHandler(ctx context.Context, e *common.TopicEvent) (retry bool, err er
 	}
 
 	// Save state into the state store if game point or higher (ie point 25 or higher)
-	if game.Team1Score > 25 || game.Team2Score > 25 {
-		key := "game_" + strconv.Itoa(game.ID)
+	if game.FirstTeamScore >= 25 || game.SecondTeamScore >= 25 {
+		key := "game_" + strconv.Itoa(game.GameID)
 		err = client.SaveState(context.Background(), stateStoreComponentName, key, e.RawData, nil)
 		if err != nil {
 			log.Fatal(err)
@@ -103,7 +104,7 @@ func eventHandler(ctx context.Context, e *common.TopicEvent) (retry bool, err er
 	return false, nil
 }
 
-// curl -X POST http://localhost:3002/scoreboard -H "Content-Type: application/json" -d '{"id": 0}'
+// curl -X POST http://localhost:3001/scoreboard -H "Content-Type: application/json" -d '{"id": 0}'
 func getGameScoreboardHandler(ctx context.Context, in *common.InvocationEvent) (out *common.Content, err error) {
 	currentTime := time.Now().Format("2006-01-02 15:04:05")
 	if in == nil {
@@ -111,8 +112,8 @@ func getGameScoreboardHandler(ctx context.Context, in *common.InvocationEvent) (
 		return
 	}
 	log.Printf(
-		"[%s] echo - ContentType:%s, Verb:%s, QueryString:%s, %s",
-		currentTime, in.ContentType, in.Verb, in.QueryString, in.Data,
+		"[%s] echo - ContentType:%s, Verb:%s, data: %s",
+		currentTime, in.ContentType, in.Verb, string(in.Data),
 	)
 
 	var gameReq pkg.GameRequest
@@ -127,10 +128,10 @@ func getGameScoreboardHandler(ctx context.Context, in *common.InvocationEvent) (
 	if err != nil {
 		log.Fatal(err)
 	}
-	key := "game_" + strconv.Itoa(gameReq.ID)
+	key := "game_" + strconv.Itoa(gameReq.GameID)
 	item, err := client.GetState(context.Background(), stateStoreComponentName, key, nil)
 	if err != nil {
-		log.Printf("error getting state for id %d", &gameReq.ID)
+		log.Printf("error getting state for game id %d", &gameReq.GameID)
 		return
 	}
 	log.Printf("[%s] retrieved state for game: %s", currentTime, string(item.Value))

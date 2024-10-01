@@ -1,14 +1,13 @@
 package types
 
 type Game struct {
-	ID         int    `json:"id"`
-	Round      int    `json:"round"`
-	Team1Name  string `json:"team1Name"`
-	Team2Name  string `json:"team2Name"`
-	Team1Score int    `json:"team1Score"`
-	Team2Score int    `json:"team2Score"`
+	GameID          int    `json:"gameID"`
+	FirstTeamName   string `json:"firstTeamName"`
+	SecondTeamName  string `json:"secondTeamName"`
+	FirstTeamScore  int    `json:"firstTeamScore"`
+	SecondTeamScore int    `json:"secondTeamScore"`
 }
 
 type GameRequest struct {
-	ID int `json:"id"`
+	GameID int `json:"gameID"`
 }

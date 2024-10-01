@@ -33,29 +33,29 @@ func main() {
 	// simulate 100 games to play
 	for i := 0; i < gameCount; i++ {
 		var game pkg.Game
-		game.ID = i
-		game.Team1Name = "team" + strconv.Itoa(i)
-		game.Team2Name = "team" + strconv.Itoa(i+1)
+		game.GameID = i
+		game.FirstTeamName = "team" + strconv.Itoa(i)
+		game.SecondTeamName = "team" + strconv.Itoa(i+1)
 		for {
 			currentTime := time.Now().Format("2006-01-02 15:04:05")
-			if game.Team1Score >= maxPoints && game.Team1Score-game.Team2Score >= minPointsDiff {
+			if game.FirstTeamScore >= maxPoints && game.FirstTeamScore-game.SecondTeamScore >= minPointsDiff {
 				log.Printf("[%s] team 1 wins: %+v", currentTime, game)
 				break
 			}
 
-			if game.Team2Score >= maxPoints && game.Team2Score-game.Team1Score >= minPointsDiff {
+			if game.SecondTeamScore >= maxPoints && game.SecondTeamScore-game.FirstTeamScore >= minPointsDiff {
 				log.Printf("[%s] team 2 wins: %+v", currentTime, game)
 				break
 			}
 
-			// Simulate the game by randomly incrementing one team's score.
-			rand.Seed(time.Now().UnixNano())
-			if rand.Intn(2) == 0 {
-				game.Team1Score++
+			// Create a new random source with a seed based on the current time
+			source := rand.NewSource(time.Now().UnixNano())
+			r := rand.New(source)
+			if r.Intn(2) == 0 {
+				game.FirstTeamScore++
 			} else {
-				game.Team2Score++
+				game.SecondTeamScore++
 			}
-			game.Round++
 
 			err = client.PublishEvent(context.Background(), pubsubComponentName, pubsubTopic, game)
 			if err != nil {
@@ -64,7 +64,7 @@ func main() {
 
 			fmt.Printf("[%s] Published data: %#v\n", currentTime, game)
 
-			time.Sleep(6 * time.Second)
+			time.Sleep(2 * time.Second)
 		}
 	}
 
