@@ -22,6 +22,7 @@ dapr run \
 No app port
 Dapr port: 3500
 
+Optionally: [See inside the Redis database by following these steps](../check-db.md)
 
 ### Scoreboard API
 
