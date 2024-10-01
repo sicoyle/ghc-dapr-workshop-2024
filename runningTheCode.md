@@ -22,7 +22,38 @@ dapr run \
 No app port
 Dapr port: 3500
 
-Optionally: [See inside the Redis database by following these steps](../check-db.md)
+To verify the command ran successfully, you'll see something similar to the following:
+```shell
+dapr run \
+--app-id game-sim \
+--app-protocol http \
+--dapr-http-port 3500 \
+--resources-path ../../resources -- go run .
+ℹ️  Starting Dapr with id game-sim. HTTP Port: 3500. gRPC Port: 53853
+ℹ️  Checking if Dapr sidecar is listening on HTTP port 3500
+Flag --dapr-http-max-request-size has been deprecated, use '--max-body-size 4Mi'
+Flag --dapr-http-read-buffer-size has been deprecated, use '--read-buffer-size 4Ki'
+INFO[0000] Starting Dapr Runtime -- version 1.14.4 -- commit 583960dc90120616124b60ad2b7820fc0b3edf44  app_id=game-sim instance=Cassandras-MacBook-Pro.local scope=dapr.runtime type=log ver=1.14.4
+...
+INFO[0000] Scheduler stream connected                    app_id=game-sim instance=Cassandras-MacBook-Pro.local scope=dapr.runtime.scheduler type=log ver=1.14.4
+INFO[0000] Placement tables updated, version: 0          app_id=game-sim instance=Cassandras-MacBook-Pro.local scope=dapr.runtime.actors.placement type=log ver=1.14.4
+ℹ️  Checking if Dapr sidecar is listening on GRPC port 53853
+ℹ️  Dapr sidecar is up and running.
+ℹ️  Updating metadata for appPID: 6961
+ℹ️  Updating metadata for app command: go run .
+✅  You're up and running! Both Dapr and your app logs will appear here.
+
+== APP == dapr client initializing for: 127.0.0.1:53853
+== APP == [2024-10-01 13:49:42] Published data: types.Game{ID:0, Round:1, Team1Name:"team0", Team2Name:"team1", Team1Score:0, Team2Score:1}
+== APP == [2024-10-01 13:49:48] Published data: types.Game{ID:0, Round:2, Team1Name:"team0", Team2Name:"team1", Team1Score:0, Team2Score:2}
+== APP == [2024-10-01 13:49:54] Published data: types.Game{ID:0, Round:3, Team1Name:"team0", Team2Name:"team1", Team1Score:0, Team2Score:3}
+== APP == [2024-10-01 13:50:00] Published data: types.Game{ID:0, Round:4, Team1Name:"team0", Team2Name:"team1", Team1Score:1, Team2Score:3}
+...
+```
+
+This means the dapr enabled app, with the app-id of `game-sim` is running successfully and publishing data to our message broker, redis.
+
+Optionally: [See inside the Redis message broker by following these steps](./checkRedis.md#how-to-check-the-redis-message-broker-while-running-the-game-simulator)
 
 ### Scoreboard API
 

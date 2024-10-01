@@ -90,7 +90,7 @@ With dapr successfully installed, check in the Dockerhub UI to see the following
 - dapr_zipkin
 ![dockerhubUI.png](./assets/dockerhubUI.png)
 
-use the following command to see the containers running via the terminal:
+Use the following command to see the containers running via the terminal:
 
 ```shell
 docker ps -a
