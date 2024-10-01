@@ -5,7 +5,7 @@ const App = () => {
   const [data, setData] = useState(null);
 
   const fetchScoreboard = () => {
-    const url = process.env.REACT_APP_GAME_SERVICE_URL + "/scoreboard/"
+    const url = process.env.REACT_APP_GAME_SERVICE_URL + "/score/"
     console.log("Calling: " + url + gameID)
     fetch(url + gameID)
       .then(response => response.json())
@@ -39,9 +39,9 @@ const App = () => {
       {data && (
         <div>
           <h1>Final Game Score</h1>
-          <h2>{JSON.parse(data).team1Name} vs {JSON.parse(data).team2Name}</h2>
-          <p>{JSON.parse(data).team1Name} score: {JSON.parse(data).team1Score}</p>
-          <p>{JSON.parse(data).team2Name} score: {JSON.parse(data).team2Score}</p>
+          <h2>{JSON.parse(data).firstTeamName} vs {JSON.parse(data).secondTeamName}</h2>
+          <p>{JSON.parse(data).firstTeamName} score: {JSON.parse(data).firstTeamScore}</p>
+          <p>{JSON.parse(data).secondTeamName} score: {JSON.parse(data).secondTeamScore}</p>
         </div>
       )}
     </>

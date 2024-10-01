@@ -10,7 +10,7 @@ import (
 
 	pkg "github.com/dapr-volleyball-demo/pkg"
 	daprd "github.com/dapr/go-sdk/service/http"
-	"github.com/gorilla/mux"
+	"github.com/go-chi/chi/v5"
 
 	dapr "github.com/dapr/go-sdk/client"
 )
@@ -33,9 +33,10 @@ func newDaprClient() (dapr.Client, func()) {
 
 func main() {
 	defer cancel()
-	router := mux.NewRouter()
-	router.HandleFunc("/scoreboard/{gameID}", scoreboardHandler)
-	srv := daprd.NewServiceWithMux(":3001", router)
+	router := chi.NewRouter()
+	// curl -X GET http://localhost:3002/score/7
+	router.HandleFunc("/score/{gameID}", scoreboardHandler)
+	srv := daprd.NewServiceWithMux(":3002", router)
 
 	// Start the Dapr service
 	log.Printf("starting service game-service")
@@ -45,15 +46,14 @@ func main() {
 }
 
 func scoreboardHandler(w http.ResponseWriter, r *http.Request) {
-	vars := mux.Vars(r)
-	gameID := vars["gameID"]
+	gameID := chi.URLParam(r, "gameID")
 	id, err := strconv.Atoi(gameID)
 	if err != nil {
 		log.Fatalf("error converting id %v", err)
 	}
 
 	gameReq := pkg.GameRequest{
-		ID: id,
+		GameID: id,
 	}
 	b, err := json.Marshal(gameReq)
 	if err != nil {
@@ -66,7 +66,8 @@ func scoreboardHandler(w http.ResponseWriter, r *http.Request) {
 	}
 
 	// invoke the service
-	resp, err := client.InvokeMethodWithContent(context.Background(), "scoreboard", "scoreboard", "POST", content)
+
+	resp, err := client.InvokeMethodWithContent(context.Background(), "scoreboard", "currentscore", "POST", content)
 	if err != nil {
 		log.Printf("error invoking %v", err)
 	}

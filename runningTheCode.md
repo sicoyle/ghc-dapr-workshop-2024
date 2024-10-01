@@ -72,6 +72,7 @@ The Web User Interface (UI) displays volleyball game score information.
 ```
 cd web-ui/
 
+npm install
 npm start
 ```
 
