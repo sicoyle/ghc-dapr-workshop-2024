@@ -1,7 +1,6 @@
 package main
 
 import (
-	"context"
 	"fmt"
 	"log"
 	"math/rand"
@@ -57,12 +56,9 @@ func main() {
 				game.SecondTeamScore++
 			}
 
-			err = client.PublishEvent(context.Background(), pubsubComponentName, pubsubTopic, game)
-			if err != nil {
-				panic(err)
-			}
+			fmt.Printf("TODO(@GHC attendees): publish game event data and then uncomment line below\n")
 
-			fmt.Printf("[%s] Published data: %#v\n", currentTime, game)
+			// fmt.Printf("[%s] Published data: %#v\n", currentTime, game)
 
 			time.Sleep(2 * time.Second)
 		}

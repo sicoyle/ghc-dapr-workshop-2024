@@ -66,7 +66,6 @@ func scoreboardHandler(w http.ResponseWriter, r *http.Request) {
 	}
 
 	// invoke the service
-
 	resp, err := client.InvokeMethodWithContent(context.Background(), "scoreboard", "currentscore", "POST", content)
 	if err != nil {
 		log.Printf("error invoking %v", err)

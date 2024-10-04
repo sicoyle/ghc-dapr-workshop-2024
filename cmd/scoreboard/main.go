@@ -8,21 +8,19 @@ import (
 	"log"
 	"net/http"
 	"os"
-	"strconv"
 	"time"
 
 	pkg "github.com/dapr-volleyball-demo/pkg"
 
-	client "github.com/dapr/go-sdk/client"
 	"github.com/dapr/go-sdk/service/common"
 	dapr "github.com/dapr/go-sdk/service/http"
 )
 
-const stateStoreComponentName = "gamestore"
+const stateStoreComponentName = "TODO(@GHC attendees): fill this field in"
 
 var sub = &common.Subscription{
-	PubsubName: "gamepubsub",
-	Topic:      "game",
+	PubsubName: "TODO(@GHC attendees): fill this field in",
+	Topic:      "TODO(@GHC attendees): fill this field in",
 	Route:      "/updateScore",
 }
 
@@ -40,10 +38,6 @@ func main() {
 		log.Fatalf("error adding topic subscription: %v", err)
 	}
 
-	// add a service to service invocation handler
-	if err := s.AddServiceInvocationHandler("/echo", echoHandler); err != nil {
-		log.Fatalf("error adding invocation handler: %v", err)
-	}
 	// handle incoming service requests
 	if err := s.AddServiceInvocationHandler("/currentscore", getGameScoreboardHandler); err != nil {
 		log.Fatalf("error adding invocation handler for scoreboard: %v", err)
@@ -53,36 +47,16 @@ func main() {
 	log.Printf("starting scoreboard service")
 	err = s.Start()
 	if err != nil && err != http.ErrServerClosed {
-		log.Fatalf("error listenning: %v", err)
+		log.Fatalf("error listening: %v", err)
 	}
-}
-
-// curl -X POST http://localhost:3002/echo -H "Content-Type: application/json" -d '{"message": "hello world"}'
-func echoHandler(ctx context.Context, in *common.InvocationEvent) (out *common.Content, err error) {
-	if in == nil {
-		err = errors.New("invocation parameter required")
-		return
-	}
-	log.Printf(
-		"echo - ContentType:%s, Verb:%s, QueryString:%s, %s",
-		in.ContentType, in.Verb, in.QueryString, in.Data,
-	)
-	out = &common.Content{
-		Data:        in.Data,
-		ContentType: in.ContentType,
-		DataTypeURL: in.DataTypeURL,
-	}
-	return
 }
 
 // eventHandler receives data on the game topic and saves state on game point of 25 or higher for either team.
 func eventHandler(ctx context.Context, e *common.TopicEvent) (retry bool, err error) {
 	currentTime := time.Now().Format("2006-01-02 15:04:05")
 	fmt.Printf("[%s] Subscriber received data %v\n", currentTime, e.Data)
-	client, err := client.NewClient()
-	if err != nil {
-		log.Fatal(err)
-	}
+
+	fmt.Printf("TODO(@GHC attendees): create dapr client to be used in this event handler to save game event data\n")
 
 	// Parse the incoming score message
 	var game pkg.Game
@@ -93,12 +67,10 @@ func eventHandler(ctx context.Context, e *common.TopicEvent) (retry bool, err er
 
 	// Save state into the state store if game point or higher (ie point 25 or higher)
 	if game.FirstTeamScore >= 25 || game.SecondTeamScore >= 25 {
-		key := "game_" + strconv.Itoa(game.GameID)
-		err = client.SaveState(context.Background(), stateStoreComponentName, key, e.RawData, nil)
-		if err != nil {
-			log.Fatal(err)
-		}
-		fmt.Printf("[%s] Saved game score: %s\n", currentTime, string(e.RawData))
+		fmt.Printf("TODO(@GHC attendees): save game event data and then uncomment the two lines below\n")
+
+		// key := "game_" + strconv.Itoa(game.GameID)
+		// fmt.Printf("[%s] Saved game score: %s\n", currentTime, string(e.RawData))
 	}
 
 	return false, nil
@@ -124,20 +96,15 @@ func getGameScoreboardHandler(ctx context.Context, in *common.InvocationEvent) (
 	}
 
 	// Get the state from the state store using the game ID
-	client, err := client.NewClient()
-	if err != nil {
-		log.Fatal(err)
-	}
-	key := "game_" + strconv.Itoa(gameReq.GameID)
-	item, err := client.GetState(context.Background(), stateStoreComponentName, key, nil)
-	if err != nil {
-		log.Printf("error getting state for game id %d", &gameReq.GameID)
-		return
-	}
-	log.Printf("[%s] retrieved state for game: %s", currentTime, string(item.Value))
+	fmt.Printf("TODO(@GHC attendees): create dapr client to be used in this event handler to save game event data\n")
+
+	fmt.Printf("TODO(@GHC attendees): get game event data and then uncomment the two lines below\n")
+
+	// key := "game_" + strconv.Itoa(gameReq.GameID)
+	// log.Printf("[%s] retrieved state for game: %s", currentTime, string(item.Value))
 
 	out = &common.Content{
-		Data:        item.Value,
+		Data:        []byte("TODO(@GHC attendees): fill in the item value here instead of this byte slice comment"),
 		ContentType: in.ContentType,
 		DataTypeURL: in.DataTypeURL,
 	}
