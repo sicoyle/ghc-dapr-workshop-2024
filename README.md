@@ -46,3 +46,4 @@ as well as consume Dapr in their day jobs.
 
 ### Additional Resources
 1. [Dapr docs](https://docs.dapr.io/)
+2. [Dapr go-sdk](https://github.com/dapr/go-sdk)

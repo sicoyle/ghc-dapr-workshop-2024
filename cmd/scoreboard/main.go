@@ -21,7 +21,7 @@ const stateStoreComponentName = "TODO(@GHC attendees): fill this field in"
 var sub = &common.Subscription{
 	PubsubName: "TODO(@GHC attendees): fill this field in",
 	Topic:      "TODO(@GHC attendees): fill this field in",
-	Route:      "/updateScore",
+	Route:      "/updatescore",
 }
 
 func main() {
