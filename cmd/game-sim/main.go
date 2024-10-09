@@ -8,7 +8,8 @@ import (
 	"time"
 
 	pkg "github.com/dapr-volleyball-demo/pkg"
-	dapr "github.com/dapr/go-sdk/client"
+
+	"github.com/dapr/go-sdk/client"
 )
 
 const (
@@ -22,11 +23,11 @@ const (
 
 func main() {
 	// Create a new client for Dapr using the SDK
-	client, err := dapr.NewClient()
+	daprClient, err := client.NewClient()
 	if err != nil {
 		panic(err)
 	}
-	defer client.Close()
+	defer daprClient.Close()
 
 	// Publish events using Dapr pubsub
 	// simulate 100 games to play

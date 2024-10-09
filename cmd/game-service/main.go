@@ -9,25 +9,25 @@ import (
 	"strconv"
 
 	pkg "github.com/dapr-volleyball-demo/pkg"
-	daprd "github.com/dapr/go-sdk/service/http"
 	"github.com/go-chi/chi/v5"
 
-	dapr "github.com/dapr/go-sdk/client"
+	"github.com/dapr/go-sdk/client"
+	daprd "github.com/dapr/go-sdk/service/http"
 )
 
 var (
 	// TODO cleanup, but workaround bc kept getting err without this setup:
 	// "error invoking rpc error: code = Canceled desc = grpc: the client connection is closing"
-	client, cancel = newDaprClient()
+	daprClient, cancel = newDaprClient()
 )
 
-func newDaprClient() (dapr.Client, func()) {
-	client, err := dapr.NewClient()
+func newDaprClient() (client.Client, func()) {
+	daprClient, err := client.NewClient()
 	if err != nil {
 		// TODO handle error
 	}
-	return client, func() {
-		defer client.Close()
+	return daprClient, func() {
+		defer daprClient.Close()
 	}
 }
 
@@ -60,13 +60,13 @@ func scoreboardHandler(w http.ResponseWriter, r *http.Request) {
 		log.Fatalf("error unmarshalling into game %v", err.Error())
 	}
 
-	content := &dapr.DataContent{
+	content := &client.DataContent{
 		Data:        b,
 		ContentType: "application/json",
 	}
 
 	// invoke the service
-	resp, err := client.InvokeMethodWithContent(context.Background(), "scoreboard", "currentscore", "POST", content)
+	resp, err := daprClient.InvokeMethodWithContent(context.Background(), "scoreboard", "currentscore", "POST", content)
 	if err != nil {
 		log.Printf("error invoking %v", err)
 	}
