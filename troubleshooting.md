@@ -14,3 +14,14 @@ sh: react-scripts: command not found
 ```
 
 To resolve the above error, run: `npm install react-scripts`
+
+
+
+
+
+
+If you see:
+```
+❌  error validating resources path ["../../resources"] : stat ../../resources: no such file or directory
+```
+Then, make sure you are running the command in the correct directory for the code to run.

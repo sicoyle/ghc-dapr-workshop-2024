@@ -1,7 +1,6 @@
 package main
 
 import (
-	"context"
 	"encoding/json"
 	"log"
 	"net/http"
@@ -48,7 +47,7 @@ func scoreboardHandler(w http.ResponseWriter, r *http.Request) {
 	gameID := chi.URLParam(r, "gameID")
 	id, err := strconv.Atoi(gameID)
 	if err != nil {
-		log.Fatalf("error converting id %v", err)
+		log.Fatalf("error converting %v", err)
 	}
 
 	gameReq := pkg.GameRequest{
@@ -64,13 +63,7 @@ func scoreboardHandler(w http.ResponseWriter, r *http.Request) {
 		ContentType: "application/json",
 	}
 
-	// invoke the service
-	log.Println("TODO(@GHC attendees): invoke the scoreboard service at currentscore method with our data")
-
-	resp, err := daprClient.InvokeMethodWithContent(context.Background(), "scoreboard", "currentscore", "POST", content)
-	if err != nil {
-		log.Printf("error invoking other service: %v", err)
-	}
+	log.Println("TODO(@GHC attendees): invoke scoreboard app at currentscore endpoint")
 
 	// process the response
 	log.Println(string(resp))

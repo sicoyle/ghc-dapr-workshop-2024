@@ -57,7 +57,7 @@ func main() {
 
 			log.Println("TODO(@GHC attendees): publish game event data and then uncomment line below")
 
-			// fmt.Printf("[%s] Published data: %#v\n", currentTime, game)
+			// log.Printf("[%s] Published data: %#v\n", currentTime, game)
 
 			time.Sleep(2 * time.Second)
 		}
