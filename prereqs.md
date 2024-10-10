@@ -19,17 +19,11 @@ Use either flow that applies to you:
 - [You do not have a Github account](#if-you-do-not-have-a-github-account)
 
 ### If you have a Github account
-1. Fork the repository using the button here on the Github UI:
-![Fork button to click](./assets/forkButton.png)
-
-2. Create your fork using the following information where `cicoyle` is replaced by your Github ID.
-![Fork specification](./assets/forkSpecs.png)
-
-3. Download the Level Up Lab code locally from your fork:
+1. Clone the repository:
 ```
-git clone git@github.com:<your Github ID>/ghc-dapr-workshop-2024.git
+git clone git@github.com:sicoyle/ghc-dapr-workshop-2024.git
 ```
-4. Enter the directory where the code is located either in your Finder app, or IDE, or in terminal with:
+2. Enter the directory where the code is located either in your Finder app, or IDE, or in terminal with:
 ```
 cd ghc-dapr-workshop-2024.git
 ```
