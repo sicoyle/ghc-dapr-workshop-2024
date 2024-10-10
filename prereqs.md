@@ -10,7 +10,6 @@
 4. Optional to use the User Interface: [Install node & npm](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm)
 5. Optional to [install an IDE, such as VSCode](https://code.visualstudio.com/download)
 
-
 ## Download the code
 
 1. Clone the repository:
@@ -21,4 +20,3 @@ git clone git@github.com:sicoyle/ghc-dapr-workshop-2024.git
 ```
 cd ghc-dapr-workshop-2024.git
 ```
-
