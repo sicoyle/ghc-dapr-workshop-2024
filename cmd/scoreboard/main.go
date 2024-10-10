@@ -17,11 +17,11 @@ import (
 	"github.com/sicoyle/ghc-dapr-workshop-2024/pkg"
 )
 
-const stateStoreComponentName = "TODO(@GHC attendees): fill this field in"
+const stateStoreComponentName = "gamestore"
 
 var sub = &common.Subscription{
-	PubsubName: "TODO(@GHC attendees): fill this field in",
-	Topic:      "TODO(@GHC attendees): fill this field in",
+	PubsubName: "gamepubsub",
+	Topic:      "game",
 	Route:      "/updatescore",
 }
 
@@ -71,10 +71,14 @@ func eventHandler(ctx context.Context, e *common.TopicEvent) (retry bool, err er
 
 	// Save state into the state store if game point or higher (ie point 25 or higher)
 	if game.FirstTeamScore >= 25 || game.SecondTeamScore >= 25 {
-		log.Println("TODO(@GHC attendees): save game event data and then uncomment the two lines below")
+		key := "game_" + strconv.Itoa(game.GameID)
 
-		// key := "game_" + strconv.Itoa(game.GameID)
-		// log.Printf("[%s] Saved game score: %s\n", currentTime, string(e.RawData))
+		err := daprClient.SaveState(context.Background(), stateStoreComponentName, key, e.RawData, nil)
+		if err != nil {
+			log.Fatalf("failed to save state: %s\n", err)
+		}
+
+		log.Printf("[%s] Saved game score: %s\n", currentTime, string(e.RawData))
 	}
 
 	return false, nil
