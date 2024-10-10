@@ -8,12 +8,13 @@ import (
 	"log"
 	"net/http"
 	"os"
+	"strconv"
 	"time"
 
-	pkg "github.com/dapr-volleyball-demo/pkg"
-
+	"github.com/dapr/go-sdk/client"
 	"github.com/dapr/go-sdk/service/common"
 	dapr "github.com/dapr/go-sdk/service/http"
+	"github.com/sicoyle/ghc-dapr-workshop-2024/pkg"
 )
 
 const stateStoreComponentName = "TODO(@GHC attendees): fill this field in"
@@ -54,29 +55,32 @@ func main() {
 // eventHandler receives data on the game topic and saves state on game point of 25 or higher for either team.
 func eventHandler(ctx context.Context, e *common.TopicEvent) (retry bool, err error) {
 	currentTime := time.Now().Format("2006-01-02 15:04:05")
-	fmt.Printf("[%s] Subscriber received data %v\n", currentTime, e.Data)
+	log.Printf("[%s] Subscriber received data %v\n", currentTime, e.Data)
 
-	fmt.Printf("TODO(@GHC attendees): create dapr client to be used in this event handler to save game event data\n")
+	daprClient, err := client.NewClient()
+	if err != nil {
+		return false, fmt.Errorf("err creating dapr client: %v", err)
+	}
 
 	// Parse the incoming score message
 	var game pkg.Game
 	err = json.Unmarshal(e.RawData, &game)
 	if err != nil {
-		log.Fatalf("error unmarshalling into game %v", err)
+		return false, fmt.Errorf("error unmarshalling into game %v", err)
 	}
 
 	// Save state into the state store if game point or higher (ie point 25 or higher)
 	if game.FirstTeamScore >= 25 || game.SecondTeamScore >= 25 {
-		fmt.Printf("TODO(@GHC attendees): save game event data and then uncomment the two lines below\n")
+		log.Println("TODO(@GHC attendees): save game event data and then uncomment the two lines below")
 
 		// key := "game_" + strconv.Itoa(game.GameID)
-		// fmt.Printf("[%s] Saved game score: %s\n", currentTime, string(e.RawData))
+		// log.Printf("[%s] Saved game score: %s\n", currentTime, string(e.RawData))
 	}
 
 	return false, nil
 }
 
-// curl -X POST http://localhost:3001/scoreboard -H "Content-Type: application/json" -d '{"id": 0}'
+// curl -X POST http://localhost:3001/currentscore -H "Content-Type: application/json" -d '{"id": 0}'
 func getGameScoreboardHandler(ctx context.Context, in *common.InvocationEvent) (out *common.Content, err error) {
 	currentTime := time.Now().Format("2006-01-02 15:04:05")
 	if in == nil {
@@ -84,7 +88,7 @@ func getGameScoreboardHandler(ctx context.Context, in *common.InvocationEvent) (
 		return
 	}
 	log.Printf(
-		"[%s] echo - ContentType:%s, Verb:%s, data: %s",
+		"[%s] echo - ContentType:%s, Verb:%s, data: %s\n",
 		currentTime, in.ContentType, in.Verb, string(in.Data),
 	)
 
@@ -96,15 +100,20 @@ func getGameScoreboardHandler(ctx context.Context, in *common.InvocationEvent) (
 	}
 
 	// Get the state from the state store using the game ID
-	fmt.Printf("TODO(@GHC attendees): create dapr client to be used in this event handler to save game event data\n")
-
-	fmt.Printf("TODO(@GHC attendees): get game event data and then uncomment the two lines below\n")
-
-	// key := "game_" + strconv.Itoa(gameReq.GameID)
-	// log.Printf("[%s] retrieved state for game: %s", currentTime, string(item.Value))
+	daprClient, err := client.NewClient()
+	if err != nil {
+		log.Fatal(err)
+	}
+	key := "game_" + strconv.Itoa(gameReq.GameID)
+	item, err := daprClient.GetState(context.Background(), stateStoreComponentName, key, nil)
+	if err != nil {
+		log.Printf("error getting state for id %d: %v\n", &gameReq.GameID, err)
+		return nil, err
+	}
+	log.Printf("[%s] retrieved state for game: %s\n", currentTime, string(item.Value))
 
 	out = &common.Content{
-		Data:        []byte("TODO(@GHC attendees): fill in the item value here instead of this byte slice comment"),
+		Data:        item.Value,
 		ContentType: in.ContentType,
 		DataTypeURL: in.DataTypeURL,
 	}

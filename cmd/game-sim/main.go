@@ -1,15 +1,13 @@
 package main
 
 import (
-	"fmt"
 	"log"
 	"math/rand"
 	"strconv"
 	"time"
 
-	pkg "github.com/dapr-volleyball-demo/pkg"
-
 	"github.com/dapr/go-sdk/client"
+	"github.com/sicoyle/ghc-dapr-workshop-2024/pkg"
 )
 
 const (
@@ -57,7 +55,7 @@ func main() {
 				game.SecondTeamScore++
 			}
 
-			fmt.Printf("TODO(@GHC attendees): publish game event data and then uncomment line below\n")
+			log.Println("TODO(@GHC attendees): publish game event data and then uncomment line below")
 
 			// fmt.Printf("[%s] Published data: %#v\n", currentTime, game)
 
@@ -65,7 +63,8 @@ func main() {
 		}
 	}
 
-	// Note: the following is added so the container keeps running for the demo.
+	// Note: the following is added so the container keeps running for a past demo using kubernetes,
+	// so please ignore this.
 	stop := make(chan struct{})
 	<-stop // block the main goroutine from exiting
 }

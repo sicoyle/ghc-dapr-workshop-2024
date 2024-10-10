@@ -16,15 +16,15 @@ development journey, using Dapr and Go. This workshop aims to showcase the simpl
 comment application development challenges.
 
 ### Agenda
-1. Intro - 2 minutes
-2. Dapr Overview - 7 minutes
-3. Volleyball Overview - 2 minutes
-4. Setup - 6 minutes
-5. Service Invocation - 11 minutes
-6. Publish & Subscribe - 11 minutes
-7. State Management - 11 minutes
-8. Conclusion - 2 minutes
-9. Q & A - 8 minutes
+1. Intro
+2. Dapr Overview
+3. Volleyball Overview
+4. Setup
+5. Service Invocation
+6. Publish & Subscribe
+7. State Management
+8. Conclusion
+9. Q & A
 
 ### Workshop Logistics
 1. Laptop & charger

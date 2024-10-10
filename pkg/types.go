@@ -1,4 +1,4 @@
-package types
+package pkg
 
 type Game struct {
 	GameID          int    `json:"gameID"`

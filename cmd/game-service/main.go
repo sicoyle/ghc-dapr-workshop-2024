@@ -3,28 +3,26 @@ package main
 import (
 	"context"
 	"encoding/json"
-	"fmt"
 	"log"
 	"net/http"
 	"strconv"
 
-	pkg "github.com/dapr-volleyball-demo/pkg"
-	"github.com/go-chi/chi/v5"
-
 	"github.com/dapr/go-sdk/client"
 	daprd "github.com/dapr/go-sdk/service/http"
+	"github.com/go-chi/chi/v5"
+	"github.com/sicoyle/ghc-dapr-workshop-2024/pkg"
 )
 
 var (
-	// TODO cleanup, but workaround bc kept getting err without this setup:
+	// Note: for now leaving this workaround bc kept getting err without this setup:
 	// "error invoking rpc error: code = Canceled desc = grpc: the client connection is closing"
-	daprClient, cancel = newDaprClient()
+	daprClient, daprClientClose = newDaprClient()
 )
 
 func newDaprClient() (client.Client, func()) {
 	daprClient, err := client.NewClient()
 	if err != nil {
-		// TODO handle error
+		log.Fatalf("failed to create dapr client: %v", err)
 	}
 	return daprClient, func() {
 		defer daprClient.Close()
@@ -32,8 +30,9 @@ func newDaprClient() (client.Client, func()) {
 }
 
 func main() {
-	defer cancel()
+	defer daprClientClose()
 	router := chi.NewRouter()
+
 	// curl -X GET http://localhost:3002/score/7
 	router.HandleFunc("/score/{gameID}", scoreboardHandler)
 	srv := daprd.NewServiceWithMux(":3002", router)
@@ -66,13 +65,15 @@ func scoreboardHandler(w http.ResponseWriter, r *http.Request) {
 	}
 
 	// invoke the service
+	log.Println("TODO(@GHC attendees): invoke the scoreboard service at currentscore method with our data")
+
 	resp, err := daprClient.InvokeMethodWithContent(context.Background(), "scoreboard", "currentscore", "POST", content)
 	if err != nil {
-		log.Printf("error invoking %v", err)
+		log.Printf("error invoking other service: %v", err)
 	}
 
 	// process the response
-	fmt.Println(string(resp))
+	log.Println(string(resp))
 	w.Header().Set("Access-Control-Allow-Origin", "*") // add this line to set the CORS header
 	w.Header().Set("Content-Type", "application/json")
 	w.Header().Set("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS")
