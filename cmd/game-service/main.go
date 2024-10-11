@@ -1,7 +1,6 @@
 package main
 
 import (
-	"context"
 	"encoding/json"
 	"log"
 	"net/http"
@@ -64,10 +63,7 @@ func scoreboardHandler(w http.ResponseWriter, r *http.Request) {
 		ContentType: "application/json",
 	}
 
-	resp, err := daprClient.InvokeMethodWithContent(context.Background(), "scoreboard", "currentscore", "POST", content)
-	if err != nil {
-		log.Fatalf("failed to invoke service: %v", err)
-	}
+	log.Println("TODO(@GHC attendees): invoke scoreboard app at currentscore endpoint")
 
 	// process the response
 	log.Println(string(resp))

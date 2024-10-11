@@ -1,7 +1,6 @@
 package main
 
 import (
-	"context"
 	"log"
 	"math/rand"
 	"strconv"
@@ -56,11 +55,8 @@ func main() {
 				game.SecondTeamScore++
 			}
 
-			err := daprClient.PublishEvent(context.Background(), pubsubComponentName, pubsubTopic, game)
-			if err != nil {
-				log.Fatal("issue publishing: %v", err)
-			}
-			log.Printf("[%s] Published data: %#v\n", currentTime, game)
+			log.Println("TODO(@GHC attendees): publish game event data and then uncomment line below")
+			// log.Printf("[%s] Published data: %#v\n", currentTime, game)
 
 			time.Sleep(2 * time.Second)
 		}
