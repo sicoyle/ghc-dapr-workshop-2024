@@ -17,11 +17,11 @@ import (
 	"github.com/sicoyle/ghc-dapr-workshop-2024/pkg"
 )
 
-const stateStoreComponentName = "gamestore"
+const stateStoreComponentName = "TODO(@GHC attendees): fill this field in"
 
 var sub = &common.Subscription{
-	PubsubName: "gamepubsub",
-	Topic:      "game",
+	PubsubName: "TODO(@GHC attendees): fill this field in",
+	Topic:      "TODO(@GHC attendees): fill this field in",
 	Route:      "/updatescore",
 }
 
