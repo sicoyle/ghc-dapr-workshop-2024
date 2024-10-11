@@ -20,9 +20,9 @@ comment application development challenges.
 2. Dapr Overview
 3. Volleyball Overview
 4. Setup
-5. Service Invocation
-6. Publish & Subscribe
-7. State Management
+5. Publish & Subscribe
+6. State Management
+7. Service Invocation
 8. Conclusion
 9. Q & A
 
